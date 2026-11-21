@@ -19,6 +19,7 @@ Files of this skill, in the folder that holds this `SKILL.md` (written `<skill>`
 - `<skill>/templates/`: the kit. It holds no skills: those of the working cycle (`start-session`, `replan`, `plan`, `adr`, `write-prompt`, `end-session`) are beside this one, in the same plugin, and the kit's `.claude/settings.json` enables it.
 - `<skill>/reference/from-reference.md`: how to read a reference and where each finding goes.
 - `<skill>/reference/tasks.md`: the technical questions and what makes a task good.
+- `<skill>/reference/plugins.md`: the plugins proposed by stack, and how to judge any other.
 - `<skill>/reference/method.md`: what each document is for and the rules behind the method.
 
 Running it again on the same repo is safe: the script skips existing files, a plugin already installed is left alone, and you go on from the first thing still unfilled (`scaffold.sh --check` says which).
@@ -58,8 +59,9 @@ Read `reference/tasks.md` now, and `reference/from-reference.md` if there is a r
 1. **Read all of it first.** Pin the reference (repo and branch `@` commit, or URL and date) and build the inventory described in `from-reference.md`. A large reference is read by one read-only agent per area, each returning that inventory; they read, only you write. Never change the reference.
 2. **Ask the technical questions.** Only what the reference, the repo and the conversation do not answer, and only questions whose answer changes a task, an ADR or a non-goal. Lead each one with what you found and what you recommend, so that a word is enough to answer. Rounds of at most four questions (`AskUserQuestion`), most consequential first; stop when another answer would not change the plan. The list to draw from is in `tasks.md`.
 3. **Record what was decided** before slicing, because tasks lean on it: one ADR per hard-to-reverse answer in `docs/decisions/` (`0002` is the relationship to the reference), the product's words in `docs/GLOSSARY.md`, the target structure in `docs/ARCHITECTURE.md`.
-4. **Draft the breakdown and show it in chat**: a numbered list with, for each task, the title, why it exists, what works when it is done, and what blocks it. Ask whether the size is right, whether the order is right, and what to merge, split or drop. **Wait for the answer**, and repeat until approved.
-5. **Write the tasks**: one card per task in `docs/tasks/T<nn>-<slug>.md` from `docs/tasks/_template.md`, and its row on the board of `docs/PLAN.md`. Then the rest of `PLAN.md`: goal, non-goals, milestones, open questions with who must answer.
+4. **Stack plugins.** Read `reference/plugins.md`. If the stack now decided matches a row, ask once which of them to add, saying what each one runs or sends out; install those accepted for this repo and write them in `.claude/settings.json` and in `CONTRIBUTING.md`, «Plugins». No match, no question.
+5. **Draft the breakdown and show it in chat**: a numbered list with, for each task, the title, why it exists, what works when it is done, and what blocks it. Ask whether the size is right, whether the order is right, and what to merge, split or drop. **Wait for the answer**, and repeat until approved.
+6. **Write the tasks**: one card per task in `docs/tasks/T<nn>-<slug>.md` from `docs/tasks/_template.md`, and its row on the board of `docs/PLAN.md`. Then the rest of `PLAN.md`: goal, non-goals, milestones, open questions with who must answer.
 
 Without a reference the step is the same, shorter: the questions are about the product (what it is and for whom, what the first milestone must do, stack decided or to decide) and the tasks come from the answers. An open stack choice is a `proposed` ADR and a task to decide it, not a guess.
 
@@ -87,4 +89,4 @@ Each fact goes in one document and the others link to it. Do not pad: a section 
 ## 6. Commit and hand over
 - Commit on `<name>/T00-docs-setup` with a message that says what was written, from which sources, what the user chose in this session and what is still unconfirmed.
 - Creating a remote, pushing and opening a pull request are outward-facing: ask first. Never push to `main`, never merge without being asked.
-- End with a short report: the documents written, the decisions recorded, the tasks (how many, per milestone), the open questions, whether the two plugins are installed and that they load after `/reload-plugins`, and the first task to take, with the reminder that the next session starts with `/start-session`, ends with `/end-session`, and that the plan changes with `/replan`.
+- End with a short report: the documents written, the decisions recorded, the tasks (how many, per milestone), the open questions, whether the two plugins and any stack plugin are installed and that they load after `/reload-plugins`, and the first task to take, with the reminder that the next session starts with `/start-session`, ends with `/end-session`, and that the plan changes with `/replan`.

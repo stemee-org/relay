@@ -53,7 +53,7 @@ Every task starts from the team, without being asked.
 - Model and effort are sized on the piece of work, from the table in `CONTRIBUTING.md`, and passed explicitly on each `Agent` call.
 
 ## The session loop
-`/start-session` (reads the documents and what is not yet on `main`, asks which tasks, loads the plugin skills the work needs: `mattpocock-skills` for the technical parts, `ponytail` for the code) → claim → team table → `/plan` if the task is big → work in waves → `/end-session` (verify, review, handover, status, commit, pull request). `/replan` whenever the plan must change or work comes up halfway: tasks, cards and every document that depends on them move together. `/adr` whenever a hard-to-reverse choice is made. `/write-prompt` to hand a whole task to another session.
+`/start-session` (reads the documents and what is not yet on `main`, asks which tasks, loads the plugin skills the work needs: `mattpocock-skills` for the technical parts, `ponytail` for the code, plus the stack plugins the project chose) → claim → team table → `/plan` if the task is big → work in waves → `/end-session` (verify, review, handover, status, commit, pull request). `/replan` whenever the plan must change or work comes up halfway: tasks, cards and every document that depends on them move together. `/adr` whenever a hard-to-reverse choice is made. `/write-prompt` to hand a whole task to another session.
 
 These skills live in one plugin, `relay`, enabled by the kit's `.claude/settings.json`: the repo holds no copy of them, so a fix reaches every project.
 

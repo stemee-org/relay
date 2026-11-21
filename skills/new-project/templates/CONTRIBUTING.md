@@ -71,6 +71,8 @@ One subagent per independent piece of work, none for a piece that is a few tool 
 
 - **`ponytail@ponytail`** (by hand: `claude plugin marketplace add DietrichGebert/ponytail`, then `claude plugin install ponytail@ponytail`). On in every session: before writing code it looks for what already exists (the codebase, the standard library, the platform, an installed dependency) and writes only what the task needs. It never cuts what the rules of this repo require: tests, validation, the handover and the documents stay. `/start-session` loads it before the first line of code; `/ponytail-review` joins the last wave; `/ponytail-audit` ranks the defects of a whole repo, useful on a codebase adopted in place. `/ponytail off` turns it off for a session. In Claude Code it shows a band above the prompt and keeps each task's cost and time in `~/.config/ponytail/band/` on your machine; nothing is sent anywhere unless you set a webhook.
 
+{{Stack plugins chosen in `/new-project`, one bullet each in the same form: when it is used, what it needs, the line to install it by hand. Then one line for those declined and why. None: «No stack plugin».}}
+
 ## Area owners
 The owner is the person to hear before changing the area, not the only one who may touch it. {{If derived from a reference's history: a proposal until confirmed.}}
 

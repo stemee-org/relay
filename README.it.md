@@ -31,7 +31,7 @@ Poi `/reload-plugins`, oppure apri una sessione nuova. Servono `git` e, per le p
    /relay:new-project
    ```
    Se hai un prototipo o altro materiale da cui partire, indicalo: `/relay:new-project . ../il-mio-prototipo`.
-2. La skill crea i documenti, installa due plugin di supporto, legge il materiale e ti fa alcune domande tecniche.
+2. La skill crea i documenti, installa i plugin di supporto, legge il materiale e ti fa alcune domande tecniche.
 3. Ti mostra l'elenco dei task proposti. Correggilo finché ti convince, poi dai l'ok: scrive le schede e committa.
 4. Da qui in poi ogni sessione di lavoro è:
    ```
@@ -73,16 +73,18 @@ docs/
 .github/                  CI generica, template di issue e pull request
 ```
 
-## Gli altri due plugin
+## Gli altri plugin
 `/relay:new-project` installa e abilita per la repo anche:
 
 - [`mattpocock-skills`](https://github.com/mattpocock/skills), per le parti tecniche: sviluppo guidato dai test, diagnosi dei difetti, progettazione dei moduli.
 - [`ponytail`](https://github.com/DietrichGebert/ponytail), per il codice: cerca ciò che esiste già e scrive solo ciò che serve.
 
+In base allo stack propone anche [`modern-web-guidance`](https://github.com/GoogleChrome/modern-web-guidance) (codice che gira nel browser), `playwright` (controllo delle pagine in un browser vero) e `context7` (documentazione aggiornata delle librerie). Lo chiede una volta e installa solo ciò che accetti.
+
 `/relay:start-session` carica le loro skill quando il task le richiede. I documenti e le decisioni del progetto vengono comunque prima di qualsiasi skill.
 
 ## Stato
-Versione 0.3.0. Lo scaffold, il controllo dei task e l'installazione sono provati da `tests/run.sh`, che gira in CI a ogni pull request. Non ancora provati: un progetto vero dall'inizio alla fine, e l'uso dentro Codex.
+Versione 0.4.0. Lo scaffold, il controllo dei task e l'installazione sono provati da `tests/run.sh`, che gira in CI a ogni pull request. Non ancora provati: un progetto vero dall'inizio alla fine, e l'uso dentro Codex.
 
 Il metodo nasce dalla ricostruzione di stemee a partire da un prototipo (novembre 2026): il kit è quello usato lì, ripulito da ciò che era specifico del progetto.
 

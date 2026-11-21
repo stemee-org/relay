@@ -58,8 +58,9 @@ Il **riferimento** è qualunque cosa il progetto debba ricostruire, copiare o mi
 
    Le domande toccano: rapporto con il riferimento, cosa entra nella prima milestone, stack, struttura, dati, accessi, servizi esterni, livello di qualità, persone.
 4. **Registra le decisioni** (un ADR per ogni scelta difficile da rovesciare), il glossario e l'architettura.
-5. **Mostra l'elenco dei task e aspetta.** Per ognuno: titolo, perché esiste, cosa funziona alla fine, da cosa è bloccato. Puoi chiedere di unire, dividere, togliere, riordinare. È l'unico punto in cui la skill si ferma.
-6. **Scrive le schede**, riempie il resto dei documenti, controlla che non resti nulla di incompleto e committa sul branch `<nome>/T00-docs-setup`.
+5. **Propone i plugin per lo stack**, se lo stack ne richiede, dicendoti cosa esegue o cosa invia ciascuno: vedi [le domande frequenti](#domande-frequenti). Installa solo quelli che accetti.
+6. **Mostra l'elenco dei task e aspetta.** Per ognuno: titolo, perché esiste, cosa funziona alla fine, da cosa è bloccato. Puoi chiedere di unire, dividere, togliere, riordinare. È il punto in cui la skill si ferma e aspetta.
+7. **Scrive le schede**, riempie il resto dei documenti, controlla che non resti nulla di incompleto e committa sul branch `<nome>/T00-docs-setup`.
 
 Alla fine ti dice quali documenti ha scritto, quali decisioni ha registrato, quante sono le domande rimaste aperte e qual è il primo task da prendere.
 
@@ -89,6 +90,7 @@ Si può rilanciare sulla stessa repo: salta ciò che c'è già e riprende dal pr
    | Un esperimento usa e getta | `prototype` |
    | Fatti da documentazione | `research` |
    | Codice, sempre | `ponytail`, prima della prima riga |
+   | Ciò che copre un plugin per lo stack | Quello scelto dal progetto: vedi `CONTRIBUTING.md` |
 
 5. **Mostra la squadra**: quali parti fa la sessione principale e quali i subagenti, con quale modello. Aspetta il tuo ok prima di toccare un file.
 
@@ -221,6 +223,9 @@ La scegli durante le domande. I titoli delle sezioni restano in inglese, perché
 
 **Devo usare per forza `mattpocock-skills` e `ponytail`?**
 No. Se mancano, `start-session` ed `end-session` lo dicono e proseguono senza. Per non farli proporre a chi apre la repo, toglili da `enabledPlugins` in `.claude/settings.json`.
+
+**Quali altri plugin propone?**
+Tre, ciascuno solo se lo stack lo richiede. `modern-web-guidance` per il codice che gira nel browser: solo guide, non esegue nulla. `playwright` per controllare le pagine in un browser vero: avvia un server locale con `npx`, quindi serve Node. `context7` per la documentazione aggiornata delle librerie: i nomi delle librerie e le domande vanno a un servizio esterno, quindi non è adatto a un progetto con dipendenze riservate. Qualsiasi altro plugin si aggiunge chiedendolo; la skill prima legge cosa aggiunge e avvisa se ripete qualcosa che c'è già.
 
 **`ponytail` si accende in tutti i miei progetti?**
 No: `new-project` lo installa solo per quella repo.

@@ -42,7 +42,8 @@ The two plugins of this repo (`CONTRIBUTING.md`, «Plugins») do the heavy lifti
    | Review, in the last wave | `code-review`, beside the `code-reviewer` agent |
 
 3. Code, with `ponytail`: load `ponytail:ponytail` before the first line of code is written or changed, and keep to it for the whole task: look for what already exists (this codebase, the standard library, the platform, an installed dependency) and write only what the task needs. Before the pull request, `ponytail:ponytail-review` on the diff. Ponytail reaches subagents on its own; name the `mattpocock-skills` skill a writer must load in its prompt, because subagents do not look for it.
-4. The project comes first: ADRs, `CLAUDE.md` and the task's card win over any plugin skill, and what a skill produces goes in the project's documents (`docs/agents/` says where), never in files of its own. Ponytail does not cut what the rules require: tests, validation, the handover and the documents stay.
+4. Stack plugins: `CONTRIBUTING.md`, «Plugins», may list others chosen for this project (guides for browser code, a real browser to check a page, current library documentation). Use each one for the part of the work its line names, before that part and not after; one that is listed but not installed is said, not imitated.
+5. The project comes first: ADRs, `CLAUDE.md` and the task's card win over any plugin skill, and what a skill produces goes in the project's documents (`docs/agents/` says where), never in files of its own. Ponytail does not cut what the rules require: tests, validation, the handover and the documents stay.
 
 ## 4. Show the team, then start
 Before changing any file, without being asked (`CONTRIBUTING.md`, «How a task is built»):
