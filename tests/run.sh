@@ -35,6 +35,11 @@ check "no skill the kit's documents name is missing" bash -c '
     test -f "skills/$s/SKILL.md" || { echo "missing $s"; exit 1; }
   done' _ "$here"
 
+check "every reference file new-project names exists" bash -c '
+  cd "$1/../skills/new-project" && for f in $(grep -oE "reference/[a-z-]+\.md" SKILL.md | sort -u); do
+    test -f "$f" || { echo "missing $f"; exit 1; }
+  done' _ "$here"
+
 # install.sh links every skill.
 bash "$here/../install.sh" "$tmp/skills-dir" >/dev/null
 for skill in new-project start-session replan end-session; do

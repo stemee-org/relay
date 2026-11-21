@@ -58,8 +58,9 @@ The **reference** is anything the project is meant to rebuild, copy or do better
 
    The questions cover: the relationship with the reference, what goes into the first milestone, stack, structure, data, access, external services, quality bar, people.
 4. **It records the decisions** (one ADR for each hard-to-reverse choice), the glossary and the architecture.
-5. **It shows the list of tasks and waits.** For each one: title, why it exists, what works at the end, what blocks it. You can ask to merge, split, drop or reorder. This is the only point where the skill stops.
-6. **It writes the cards**, fills in the rest of the documents, checks that nothing is left incomplete and commits on the branch `<name>/T00-docs-setup`.
+5. **It proposes the stack plugins**, if the stack calls for any, telling you what each one runs or sends out: see [the frequent questions](#frequent-questions). It installs only those you accept.
+6. **It shows the list of tasks and waits.** For each one: title, why it exists, what works at the end, what blocks it. You can ask to merge, split, drop or reorder. This is the point where the skill stops and waits.
+7. **It writes the cards**, fills in the rest of the documents, checks that nothing is left incomplete and commits on the branch `<name>/T00-docs-setup`.
 
 At the end it tells you which documents it wrote, which decisions it recorded, how many questions are still open and which task to take first.
 
@@ -89,6 +90,7 @@ It can be run again on the same repo: it skips what is already there and resumes
    | A throwaway experiment | `prototype` |
    | Facts from documentation | `research` |
    | Code, always | `ponytail`, before the first line |
+   | What a stack plugin covers | The one the project chose: see `CONTRIBUTING.md` |
 
 5. **It shows the team**: which parts the main session does and which the subagents do, on which model. It waits for your go-ahead before touching a file.
 
@@ -221,6 +223,9 @@ You choose it during the questions. Section headings stay in English, because th
 
 **Do I have to use `mattpocock-skills` and `ponytail`?**
 No. If they are missing, `start-session` and `end-session` say so and go on without them. To stop them being offered to whoever opens the repo, remove them from `enabledPlugins` in `.claude/settings.json`.
+
+**Which other plugins does it propose?**
+Three, each only if the stack calls for it. `modern-web-guidance` for code that runs in a browser: guides only, nothing runs. `playwright` to check pages in a real browser: it starts a local server with `npx`, so it needs Node. `context7` for current library documentation: the library names and the questions go to a hosted service, so it is not for a project whose dependencies are confidential. Any other plugin can be added by asking; the skill first reads what it adds and warns if it repeats something already there.
 
 **Does `ponytail` switch itself on in all my projects?**
 No: `new-project` installs it for that repo only.

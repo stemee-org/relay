@@ -31,7 +31,7 @@ Then `/reload-plugins`, or open a new session. You need `git` and, for pull requ
    /relay:new-project
    ```
    If you have a prototype or other material to start from, name it: `/relay:new-project . ../my-prototype`.
-2. The skill creates the documents, installs two supporting plugins, reads the material and asks you a few technical questions.
+2. The skill creates the documents, installs the supporting plugins, reads the material and asks you a few technical questions.
 3. It shows you the list of proposed tasks. Correct it until you are happy, then give the go-ahead: it writes the cards and commits.
 4. From then on, every working session is:
    ```
@@ -73,22 +73,24 @@ docs/
 .github/                  generic CI, issue and pull request templates
 ```
 
-## The other two plugins
+## The other plugins
 `/relay:new-project` also installs and enables for the repo:
 
 - [`mattpocock-skills`](https://github.com/mattpocock/skills), for the technical parts: test-driven development, diagnosing defects, designing modules.
 - [`ponytail`](https://github.com/DietrichGebert/ponytail), for the code: it looks for what already exists and writes only what is needed.
 
+Depending on the stack, it also proposes [`modern-web-guidance`](https://github.com/GoogleChrome/modern-web-guidance) (code that runs in a browser), `playwright` (checking pages in a real browser) and `context7` (current library documentation). It asks once and installs only what you accept.
+
 `/relay:start-session` loads their skills when the task calls for them. The project's documents and decisions still come before any skill.
 
 ## State
-Version 0.3.0. The scaffold, the task check and the installation are tested by `tests/run.sh`, which runs in CI on every pull request. Not tested yet: a real project from start to finish, and use inside Codex.
+Version 0.4.0. The scaffold, the task check and the installation are tested by `tests/run.sh`, which runs in CI on every pull request. Not tested yet: a real project from start to finish, and use inside Codex.
 
 The method was born while rebuilding stemee from a prototype (November 2026): the kit is the one used there, cleaned of what was specific to that project.
 
 ## For those who want to change it
 - `skills/<name>/SKILL.md`: the seven skills. Each has one copy, here: the kit does not copy them into repos.
-- `skills/new-project/reference/`: the method (`method.md`), how a reference is read (`from-reference.md`), the technical questions and what makes a good task (`tasks.md`).
+- `skills/new-project/reference/`: the method (`method.md`), how a reference is read (`from-reference.md`), the technical questions and what makes a good task (`tasks.md`), the plugins proposed by stack (`plugins.md`).
 - `skills/new-project/templates/`: the kit copied into the project. The `dot-` prefix becomes a dot (`dot-claude/` → `.claude/`).
 - `skills/new-project/scripts/scaffold.sh`: copies the kit; with `--check` it lists what is still to fill in.
 - `tests/run.sh`: the tests. Run `./tests/run.sh` before every commit.
