@@ -30,7 +30,7 @@
 - {{With a reference: one task at a time is ported, reading the original and applying the ADRs; never copy whole folders without a task in `docs/PLAN.md`.}}
 - Don't edit by hand: {{generated files (→ the command that regenerates each)}}, lockfiles, {{applied migrations}}.
 - Never write real secrets into any file.
-- Git: never push to `main`. Every change, documents included, starts on a branch `<name>/<task-id>-<short-desc>` and goes through a pull request; merging it is a separate decision, to be asked. Commits `<type>: <what>` (feat, fix, docs, refactor, test, chore); a pull request title has the same form with the task at the end: `feat: … (T18)`. Never force-push.
+- Git: never push to `main`. Every change, documents included, starts on a branch `<name>/<task-id>-<short-desc>` and goes through a pull request; merging it is a separate decision, to be asked; once merged, its branch is deleted. Commits `<type>: <what>` (feat, fix, docs, refactor, test, chore); a pull request title has the same form with the task at the end: `feat: … (T18)`. Never force-push.
 - Every task ends committed, documents and handover included. Every commit explains itself: the subject says what changes; the body says why, what was chosen and what was discarded, how it was verified and what is still unverified. Same for the pull request description: the reader was not in the session.
 
 ## Docs

@@ -75,7 +75,7 @@ It can be run again on the same repo: it skips what is already there and resumes
 /relay:start-session
 ```
 
-1. **It reads the documents**: status, latest handover, plan. Only the Markdown files, not the code. It also looks at unmerged branches and open pull requests, because a task claimed there does not show on `main` yet.
+1. **It reads the documents**: status, latest handover, plan. Only the Markdown files, not the code. It also looks at unmerged branches and open pull requests, because a task claimed there does not show on `main` yet, and deletes the branches of pull requests already merged.
 2. **It summarises** in under ten lines: what was done, what is in progress and whose it is, what comes next.
 3. **It asks which tasks you want to do**, proposing those that nothing blocks and nobody has claimed. For the one chosen it reads the card, puts your name on it in the plan and creates the branch.
 4. **It loads the skills** that work needs and tells you which:
@@ -171,7 +171,7 @@ Two cases, one skill.
 
 **You stop halfway:** it writes the handover and the status, commits, and pushes only if you ask. No pull request. The handover says exactly what is half-done and what the next move is.
 
-In no case does it merge the pull request: that is a separate decision.
+In no case does it merge the pull request: that is a separate decision. When you do ask for the merge, the branch is deleted with it.
 
 ## Tasks
 The board in `docs/PLAN.md` has one row per task: id, title, milestone, what blocks it, whose it is, branch, status. A task can be taken when every task that blocks it is `done`.
@@ -211,6 +211,7 @@ The test of a card: someone who was not in the session, with the card alone, can
 ## Working with several people
 - **A task has one owner**, written in the plan before starting. `start-session` also looks at unmerged branches, so a task a colleague claimed counts as claimed even if `main` still says `todo`.
 - **Everyone works on their own branch** (`<name>/<task>-<description>`) and opens a pull request. Never push to `main`.
+- **A merged branch is deleted.** Once the pull request is on `main` the branch goes, on GitHub and on your machine, so that every branch still there means work in progress. `new-project` turns on GitHub's automatic deletion; `start-session` removes the ones left behind.
 - **Handovers, decisions and plans are one file per entry**: no conflicts, and nobody edits someone else's file.
 - **Whoever opens the repo gets the plugins**: `.claude/settings.json` enables them and Claude Code offers to install them.
 

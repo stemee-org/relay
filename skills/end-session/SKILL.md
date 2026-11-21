@@ -39,7 +39,7 @@ Pushing and opening a pull request are outward-facing: ask first, unless the use
 - Push the branch and open the pull request from `.github/pull_request_template.md`. Title in the form of commits with the task at the end (`feat: … (T18)`); description written for a reader who was not in the session.
 - Check the CI on the pull request.
 - Set the task's row in `docs/PLAN.md` to `in review` with the link, commit and push that too.
-- Never merge: merging is a separate decision, to be asked. The row becomes `done` when the pull request is merged.
+- Never merge: merging is a separate decision, to be asked. The row becomes `done` when the pull request is merged. When the user does ask for the merge, the branch goes with it: `gh pr merge <n> --merge --delete-branch`, then `git switch main && git pull --ff-only`.
 
 ## 7. Report
 In a few lines: what is in the pull request, what was verified and what was not, what the next session should take.

@@ -88,5 +88,5 @@ Each fact goes in one document and the others link to it. Do not pad: a section 
 
 ## 6. Commit and hand over
 - Commit on `<name>/T00-docs-setup` with a message that says what was written, from which sources, what the user chose in this session and what is still unconfirmed.
-- Creating a remote, pushing and opening a pull request are outward-facing: ask first. Never push to `main`, never merge without being asked.
+- Creating a remote, pushing and opening a pull request are outward-facing: ask first. Never push to `main`, never merge without being asked. On a GitHub remote, with the same go-ahead, turn on the deletion of merged branches: `gh repo edit --delete-branch-on-merge`.
 - End with a short report: the documents written, the decisions recorded, the tasks (how many, per milestone), the open questions, whether the two plugins and any stack plugin are installed and that they load after `/reload-plugins`, and the first task to take, with the reminder that the next session starts with `/start-session`, ends with `/end-session`, and that the plan changes with `/replan`.
