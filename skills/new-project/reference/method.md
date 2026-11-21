@@ -60,6 +60,7 @@ These skills live in one plugin, `relay`, enabled by the kit's `.claude/settings
 ## What experience added
 These were learned the hard way; keep them when adapting the kit.
 - Look past `main` at the start of a session: a task claimed on an unmerged branch is claimed.
+- A merged branch is deleted. Every branch that exists then means work not yet on `main`, which is what the line above relies on.
 - Look at the open issues of the repo before writing the plan, not after.
 - A rule that changes names who asked and when, in `CONTRIBUTING.md`; the old wording goes.
 - Skills and documents drift apart: when a rule changes, grep the project's agents and documents for the old one. This is also why the skills are in a plugin and not copied into each repo.

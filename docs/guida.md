@@ -75,7 +75,7 @@ Si può rilanciare sulla stessa repo: salta ciò che c'è già e riprende dal pr
 /relay:start-session
 ```
 
-1. **Legge i documenti**: stato, ultimo handover, piano. Solo i Markdown, non il codice. Guarda anche i branch non uniti e le pull request aperte, perché un task preso lì non compare ancora su `main`.
+1. **Legge i documenti**: stato, ultimo handover, piano. Solo i Markdown, non il codice. Guarda anche i branch non uniti e le pull request aperte, perché un task preso lì non compare ancora su `main`, ed elimina i branch delle pull request già unite.
 2. **Riassume** in meno di dieci righe: cosa è stato fatto, cosa è in corso e di chi, cosa viene dopo.
 3. **Chiede quali task vuoi fare**, proponendo quelli che nessuno blocca e nessuno ha preso. Di quello scelto legge la scheda, lo segna a tuo nome nel piano e crea il branch.
 4. **Carica le skill** che servono a quel lavoro e ti dice quali:
@@ -171,7 +171,7 @@ Due casi, stessa skill.
 
 **Ti fermi a metà:** scrive handover e stato, committa, e fa push solo se lo chiedi. Nessuna pull request. L'handover dice esattamente cosa è a metà e qual è la prossima mossa.
 
-In nessun caso unisce la pull request: è una decisione a parte.
+In nessun caso unisce la pull request: è una decisione a parte. Quando chiedi di unirla, il branch viene eliminato insieme.
 
 ## I task
 Il tabellone in `docs/PLAN.md` ha una riga per task: id, titolo, milestone, da cosa è bloccato, di chi è, branch, stato. Un task si può prendere quando tutti quelli che lo bloccano sono `done`.
@@ -211,6 +211,7 @@ La prova di una scheda: chi non era nella sessione, con la sola scheda, sa dire 
 ## In più persone
 - **Un task ha un solo proprietario**, scritto nel piano prima di cominciare. `start-session` guarda anche i branch non uniti, quindi un task preso da un collega risulta preso anche se `main` dice ancora `todo`.
 - **Ognuno lavora su un branch suo** (`<nome>/<task>-<descrizione>`) e apre una pull request. Mai push su `main`.
+- **Un branch unito si elimina.** Quando la pull request è su `main` il branch sparisce, su GitHub e sul tuo computer, così ogni branch rimasto significa lavoro in corso. `new-project` attiva l'eliminazione automatica di GitHub; `start-session` toglie quelli rimasti.
 - **Handover, decisioni e piani sono un file per voce**: nessun conflitto, e nessuno modifica il file di un altro.
 - **Chi apre la repo riceve i plugin**: `.claude/settings.json` li abilita e Claude Code propone di installarli.
 

@@ -15,7 +15,8 @@ Only the Markdown documents, not the codebase: the code is read later, for the t
    - Open pull requests: `gh pr list --state open --json number,title,headRefName,author,isDraft,updatedAt`.
    - Branches with unmerged work: for every `origin/*` branch except `main`, `git log --oneline origin/main..<branch>` (skip those with no commits ahead), with author and date of the last commit (`git log -1 --format='%an %ar' <branch>`).
    - What those branches say about the plan: `git diff origin/main...<branch> -- docs/PLAN.md docs/STATUS.md` (three dots: only their changes). A task claimed or moved forward there counts as claimed, even if `main` still says `todo`.
-   - Recently merged pull requests (`gh pr list --state merged -L 5`): if `PLAN.md` or `STATUS.md` still call one of them open, say so.
+   - Recently merged pull requests (`gh pr list --state merged -L 10 --json number,headRefName,headRefOid`): if `PLAN.md` or `STATUS.md` still call one of them open, say so.
+   - Branches left behind by a merged pull request are deleted, because a leftover branch reads as open work. Only when the branch still points at the commit that was merged (`headRefOid`): one that moved on holds new work and stays, and is listed with the others. Say which ones you delete, then `git push origin --delete <branch>` and, for a local copy, `git branch -D <branch>` (never the branch you are on: switch to `main` first, and not with uncommitted work). If the push is refused or needs an approval the user does not give, list them and go on.
 3. Summarize in under 10 lines: what was done, what is in progress (by whom, with the branch or pull request), what comes next. List each unmerged branch in one line.
 
 ## 2. Ask which tasks

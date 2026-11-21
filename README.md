@@ -84,7 +84,7 @@ Depending on the stack, it also proposes [`modern-web-guidance`](https://github.
 `/relay:start-session` loads their skills when the task calls for them. The project's documents and decisions still come before any skill.
 
 ## State
-Version 0.4.0. The scaffold, the task check and the installation are tested by `tests/run.sh`, which runs in CI on every pull request. Not tested yet: a real project from start to finish, and use inside Codex.
+Version 0.4.1. The scaffold, the task check and the installation are tested by `tests/run.sh`, which runs in CI on every pull request. Not tested yet: a real project from start to finish, and use inside Codex.
 
 The method was born while rebuilding stemee from a prototype (November 2026): the kit is the one used there, cleaned of what was specific to that project.
 

@@ -84,7 +84,7 @@ In base allo stack propone anche [`modern-web-guidance`](https://github.com/Goog
 `/relay:start-session` carica le loro skill quando il task le richiede. I documenti e le decisioni del progetto vengono comunque prima di qualsiasi skill.
 
 ## Stato
-Versione 0.4.0. Lo scaffold, il controllo dei task e l'installazione sono provati da `tests/run.sh`, che gira in CI a ogni pull request. Non ancora provati: un progetto vero dall'inizio alla fine, e l'uso dentro Codex.
+Versione 0.4.1. Lo scaffold, il controllo dei task e l'installazione sono provati da `tests/run.sh`, che gira in CI a ogni pull request. Non ancora provati: un progetto vero dall'inizio alla fine, e l'uso dentro Codex.
 
 Il metodo nasce dalla ricostruzione di stemee a partire da un prototipo (novembre 2026): il kit è quello usato lì, ripulito da ciò che era specifico del progetto.
 

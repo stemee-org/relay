@@ -11,7 +11,7 @@
 ## While working
 - Never push to `main`: work on a branch, one task at a time, and open a pull request. Also for a change of documents only.
 - Small commits; message style: `<type>: <what>` (feat, fix, docs, refactor, test, chore).
-- Don't change files owned by someone else's in-progress task without talking to them. Someone else's branch is not deleted without asking.
+- Don't change files owned by someone else's in-progress task without talking to them. Someone else's unmerged branch is not deleted without asking.
 - Made a decision others should know about? Write an ADR (`/adr`).
 - {{With a reference: porting = read the original, apply the ADRs and the corrections named in the task, add the tests. A defect found in the reference is fixed here and written in the handover.}}
 
@@ -44,6 +44,7 @@ One subagent per independent piece of work, none for a piece that is a few tool 
 - Write a handover in `docs/handover/` (`/end-session` does this and the next two steps).
 - Update `STATUS.md` and your task's row in `PLAN.md`.
 - Commit and push on the work branch, then a pull request to `main` (`/end-session`). Title in the form of commits, with the task in parentheses at the end. Description with the sections «What changes», «Why this way», «How it was done», «Verified» and «Not verified». Have it reviewed before merging unless told otherwise.
+- Once the pull request is merged, its branch is deleted, on GitHub and on your machine: what it held is on `main`, and a branch left behind looks like work still open. GitHub does it by itself when «Automatically delete head branches» is on; `/start-session` removes the ones it finds. A branch with commits that are not on `main` is not merged: it stays.
 
 ## Plugins
 `.claude/settings.json` enables them: Claude Code offers to install them to whoever opens the repo. ADRs and the documents of this repo come before any plugin skill; what a plugin skill produces is stored in these documents (`docs/plans/`, `docs/tasks/` and the task board, `docs/GLOSSARY.md`, an ADR), never in a parallel set of files. The lists below are checked against `claude plugin details <plugin>`, not written from memory.
