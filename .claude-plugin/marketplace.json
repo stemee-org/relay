@@ -8,7 +8,7 @@
     {
       "name": "relay",
       "source": "./",
-      "description": "Set up a repo with the documentation-first method (new-project) and run its working cycle: start-session, replan, plan, adr, write-prompt, end-session."
+      "description": "Set up a repo with the documentation-first method (new-project) and run its working cycle: start-session, start-multi-session, replan, plan, adr, write-prompt, end-session."
     }
   ]
 }

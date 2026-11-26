@@ -27,12 +27,17 @@ check "no dot- prefix left" bash -c "! find '$repo' -name 'dot-*' | grep -q ."
 check "the kit copies no skills (they come from the plugin)" test ! -e "$repo/.claude/skills"
 
 # The plugin holds every skill of the cycle, each with a name that matches its folder.
-for skill in new-project start-session replan plan adr write-prompt end-session; do
+for skill in new-project start-session start-multi-session replan plan adr write-prompt end-session; do
   check "plugin has the skill $skill" grep -qx "name: $skill" "$here/../skills/$skill/SKILL.md"
 done
 check "no skill the kit's documents name is missing" bash -c '
-  cd "$1/.." && for s in $(grep -rhoE "\`/(start-session|end-session|replan|plan|adr|write-prompt|handover|ship)\`" skills README.md | tr -d "\`/" | sort -u); do
+  cd "$1/.." && for s in $(grep -rhoE "\`/(start-session|start-multi-session|end-session|replan|plan|adr|write-prompt|handover|ship)\`" skills README.md | tr -d "\`/" | sort -u); do
     test -f "skills/$s/SKILL.md" || { echo "missing $s"; exit 1; }
+  done' _ "$here"
+
+check "start-multi-session finds the two skills it builds on beside it" bash -c '
+  cd "$1/../skills/start-multi-session" && for f in $(grep -oE "\.\./[a-z-]+/SKILL\.md" SKILL.md | sort -u); do
+    test -f "$f" || { echo "missing $f"; exit 1; }
   done' _ "$here"
 
 check "every reference file new-project names exists" bash -c '
@@ -42,7 +47,7 @@ check "every reference file new-project names exists" bash -c '
 
 # install.sh links every skill.
 bash "$here/../install.sh" "$tmp/skills-dir" >/dev/null
-for skill in new-project start-session replan end-session; do
+for skill in new-project start-session start-multi-session replan end-session; do
   check "install.sh links $skill" test -f "$tmp/skills-dir/$skill/SKILL.md"
 done
 check "scaffold works through the link" bash "$tmp/skills-dir/new-project/scripts/scaffold.sh" "$tmp/linked"

@@ -1,7 +1,7 @@
 {
   "name": "relay",
-  "description": "The documentation-first method as one plugin: every session starts from the repo's documents and ends by updating them, so the next one can pick up any task. new-project sets up a repo (documentation kit, the mattpocock-skills and ponytail plugins, tasks that explain themselves, also from a prototype). start-session, replan, plan, adr, write-prompt and end-session run the working cycle.",
-  "version": "0.4.1",
+  "description": "The documentation-first method as one plugin: every session starts from the repo's documents and ends by updating them, so the next one can pick up any task. new-project sets up a repo (documentation kit, the mattpocock-skills and ponytail plugins, tasks that explain themselves, also from a prototype). start-session, start-multi-session, replan, plan, adr, write-prompt and end-session run the working cycle.",
+  "version": "0.5.0",
   "author": {
     "name": "stemee"
   },
