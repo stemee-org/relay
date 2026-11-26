@@ -36,9 +36,9 @@ Skip this step when the diff holds no code.
 
 ## 6. Pull request
 Pushing and opening a pull request are outward-facing: ask first, unless the user already said to.
+- Before the push, set the task's row in `docs/PLAN.md` to `in review` and commit it with the rest: everything goes up in one push. A push made only to add the pull request's link is one more CI run for nothing; the pull request is found from its branch.
 - Push the branch and open the pull request from `.github/pull_request_template.md`. Title in the form of commits with the task at the end (`feat: … (T18)`); description written for a reader who was not in the session.
-- Check the CI on the pull request.
-- Set the task's row in `docs/PLAN.md` to `in review` with the link, commit and push that too.
+- Check the CI on the pull request. If it fails: read the log, reproduce it here, fix all of it and run step 2 again before pushing once. Never push to see what CI says.
 - Never merge: merging is a separate decision, to be asked. The row becomes `done` when the pull request is merged. When the user does ask for the merge, the branch goes with it: `gh pr merge <n> --merge --delete-branch`, then `git switch main && git pull --ff-only`.
 
 ## 7. Report

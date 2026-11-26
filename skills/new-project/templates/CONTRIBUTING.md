@@ -54,6 +54,7 @@ One subagent per independent piece of work, none for a piece that is a few tool 
   | When | Skill |
   |---|---|
   | A session starts | `/start-session`: reads the documents, asks which tasks, loads the skills of the other two plugins |
+  | Several tasks at once | `/start-multi-session`: one tab orchestrates, one tab per task; it follows files touched, pull requests and CI runs (one push per pull request) |
   | The plan must change, or work came up halfway | `/replan`: tasks and every document that depends on them |
   | A task bigger than a few files | `/plan` |
   | A hard-to-reverse choice | `/adr` |

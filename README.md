@@ -11,7 +11,7 @@ A coding agent does not remember the previous session, and a colleague does not 
 
 - **One place for each piece of information.** What is being built, which tasks are left, why a choice was made, what happened in the last session: each has its own document.
 - **Tasks that explain themselves.** Every task has a card that says why it exists, what must work at the end and when it is done. Someone who was not there can start it without asking.
-- **A fixed cycle.** Seven commands cover the life of the project: setting it up, opening a session, changing the plan, closing the session.
+- **A fixed cycle.** Eight commands cover the life of the project: setting it up, opening a session, changing the plan, closing the session.
 
 It is meant for people working with Claude Code, alone or several on the same repo, on a new project or on one to rebuild from a prototype.
 
@@ -46,6 +46,7 @@ Then `/reload-plugins`, or open a new session. You need `git` and, for pull requ
 |---|---|---|
 | Once, at the beginning | `/relay:new-project` | Sets up the repo: documents, plugins, technical questions, tasks |
 | At the start of every session | `/relay:start-session` | Reads the documents, asks which tasks to take, loads the skills the work needs |
+| To work on several tasks at once | `/relay:start-multi-session` | Splits the tasks over several tabs, writes a prompt for each and follows them all from one: files touched, pull requests, CI runs, order of merges |
 | When the plan changes | `/relay:replan` | Adds, changes, splits, merges or drops tasks, and updates the documents that depend on them |
 | Before a big task | `/relay:plan` | Writes the feature plan and gets it approved |
 | At every hard-to-reverse choice | `/relay:adr` | Records the decision and the alternatives discarded |
@@ -84,12 +85,12 @@ Depending on the stack, it also proposes [`modern-web-guidance`](https://github.
 `/relay:start-session` loads their skills when the task calls for them. The project's documents and decisions still come before any skill.
 
 ## State
-Version 0.4.1. The scaffold, the task check and the installation are tested by `tests/run.sh`, which runs in CI on every pull request. Not tested yet: a real project from start to finish, and use inside Codex.
+Version 0.5.0. The scaffold, the task check and the installation are tested by `tests/run.sh`, which runs in CI on every pull request. Not tested yet: a real project from start to finish, and use inside Codex.
 
 The method was born while rebuilding stemee from a prototype (November 2026): the kit is the one used there, cleaned of what was specific to that project.
 
 ## For those who want to change it
-- `skills/<name>/SKILL.md`: the seven skills. Each has one copy, here: the kit does not copy them into repos.
+- `skills/<name>/SKILL.md`: the eight skills. Each has one copy, here: the kit does not copy them into repos.
 - `skills/new-project/reference/`: the method (`method.md`), how a reference is read (`from-reference.md`), the technical questions and what makes a good task (`tasks.md`), the plugins proposed by stack (`plugins.md`).
 - `skills/new-project/templates/`: the kit copied into the project. The `dot-` prefix becomes a dot (`dot-claude/` → `.claude/`).
 - `skills/new-project/scripts/scaffold.sh`: copies the kit; with `--check` it lists what is still to fill in.

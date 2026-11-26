@@ -7,6 +7,7 @@ Come si usa ogni comando, cosa aspettarsi e cosa resta nella repo. Per installar
 - [Il ciclo](#il-ciclo)
 - [`new-project`: impostare la repo](#new-project-impostare-la-repo)
 - [`start-session`: aprire una sessione](#start-session-aprire-una-sessione)
+- [`start-multi-session`: più task, una sola tab](#start-multi-session-più-task-una-sola-tab)
 - [`replan`: cambiare il piano](#replan-cambiare-il-piano)
 - [`plan`, `adr`, `write-prompt`](#plan-adr-write-prompt)
 - [`end-session`: chiudere una sessione](#end-session-chiudere-una-sessione)
@@ -98,6 +99,35 @@ Se ciò che vuoi fare non è nel piano, la skill ti manda prima a `/relay:replan
 
 Funziona anche per fare solo il punto: «a che punto siamo?» si ferma al riassunto.
 
+## `start-multi-session`: più task, una sola tab
+```
+/relay:start-multi-session
+```
+
+Per quando vuoi far avanzare più task insieme senza seguire quattro o cinque tab. La tab in cui lo lanci diventa l'orchestratore ed è l'unica che leggi; le altre lavorano.
+
+1. **Controlla il suo modello**: Fable 5.2 con effort `high`, oppure Opus 5.5 con effort `xhigh` dove Fable non c'è. Su un altro ti dice di cambiarlo.
+2. **Legge i documenti**, come `start-session`, e guarda come funziona la CI nella repo.
+3. **Propone la divisione**: quali task possono andare in parallelo (nessuno blocca un altro, nessuno tocca i file di un altro), in quante sessioni (da 2 a 5), con quale modello ciascuna. Aspetta il tuo via, poi chiede una volta sola ciò che altrimenti chiederebbe ogni tab: se possono aprire la pull request da sole, se possono partire senza aspettare.
+4. **Prepara un branch e una cartella per task** (un worktree di git), così le sessioni non si pestano i piedi.
+5. **Ti dà un prompt per task.** Apri una tab per ognuno, scegli il modello scritto sopra e incolli. Da lì in poi torni dall'orchestratore.
+6. **Le segue tutte.** Ogni sessione scrive all'orchestratore quando parte, quando ha una domanda, quando le serve un file non suo, quando la pull request è aperta. L'orchestratore risponde a ciò a cui rispondono i documenti, porta a te le decisioni che sono tue e tiene un solo tabellone:
+
+   | Tiene d'occhio | Come |
+   |---|---|
+   | I file | Cosa ha modificato ogni sessione, rispetto ai file che le erano stati dati: un file toccato da due sessioni viene fermato prima che diventi un conflitto |
+   | Le pull request | Quali sono aperte, i loro controlli, quali sono in conflitto con `main` |
+   | Le run di CI | L'obiettivo è una per pull request; ognuna in più ha un motivo scritto nel tabellone |
+   | I merge | Propone l'ordine e unisce solo quando lo chiedi |
+
+7. **Chiude il giro**: lo stato, una volta per tutti, e un resoconto con le run di CI spese rispetto alle pull request aperte.
+
+### Come tiene basse le run di CI
+- Ogni sessione fa **un solo push**: dopo aver portato dentro `main`, aver eseguito in locale tutto ciò che esegue la CI, e con handover, revisione e segno `in review` già nei commit.
+- Una run fallita si riproduce in locale e si corregge per intero prima del push successivo. Nessuno fa push per vedere cosa dice la CI.
+- Prima dei merge, l'orchestratore unisce tutti i branch del giro in una cartella usa e getta ed esegue i controlli una volta, in locale: ciò che si rompe solo insieme si trova senza spendere una run.
+- Dopo un merge, le altre pull request **non** vengono tutte aggiornate. Solo quella in conflitto, o la prossima in fila se la repo richiede branch aggiornati.
+
 ## `replan`: cambiare il piano
 ```
 /relay:replan [cosa cambia]
@@ -167,7 +197,7 @@ Due casi, stessa skill.
 3. Fa rivedere il diff: l'agente `code-reviewer`, `security-auditor` se il task tocca input, accessi o pagamenti, più le revisioni dei plugin di supporto se installati.
 4. Scrive l'handover, aggiorna lo stato e la riga del task. Se è nato lavoro non previsto ti manda a `/relay:replan`.
 5. Committa: il messaggio dice cosa cambia, perché, cosa è stato scartato, come è stato verificato e cosa resta non verificato.
-6. **Chiede** se fare push e aprire la pull request. Poi controlla la CI e segna il task `in review`.
+6. **Chiede** se fare push e aprire la pull request, con il task già segnato `in review`: un push, una run di CI. Poi controlla la CI.
 
 **Ti fermi a metà:** scrive handover e stato, committa, e fa push solo se lo chiedi. Nessuna pull request. L'handover dice esattamente cosa è a metà e qual è la prossima mossa.
 

@@ -7,6 +7,7 @@ How to use each command, what to expect and what stays in the repo. To install i
 - [The cycle](#the-cycle)
 - [`new-project`: setting up the repo](#new-project-setting-up-the-repo)
 - [`start-session`: opening a session](#start-session-opening-a-session)
+- [`start-multi-session`: several tasks, one tab](#start-multi-session-several-tasks-one-tab)
 - [`replan`: changing the plan](#replan-changing-the-plan)
 - [`plan`, `adr`, `write-prompt`](#plan-adr-write-prompt)
 - [`end-session`: closing a session](#end-session-closing-a-session)
@@ -98,6 +99,35 @@ If what you want to do is not in the plan, the skill sends you to `/relay:replan
 
 It also works just to catch up: «where are we?» stops at the summary.
 
+## `start-multi-session`: several tasks, one tab
+```
+/relay:start-multi-session
+```
+
+For when you want several tasks to move at once without following four or five tabs. The tab where you run it becomes the orchestrator and is the only one you read; the others work.
+
+1. **It checks its model**: Fable 5.2 with effort `high`, or Opus 5.5 with effort `xhigh` where Fable is not available. On another one it tells you to switch.
+2. **It reads the documents**, like `start-session`, and looks at how CI works in the repo.
+3. **It proposes the split**: which tasks can go in parallel (none blocks another, none touches another's files), in how many sessions (2 to 5), with which model each. It waits for your go-ahead, then asks once what every tab would otherwise ask: whether they may open the pull request by themselves, whether they may start without waiting.
+4. **It prepares one branch and one folder per task** (a git worktree), so that the sessions do not step on each other.
+5. **It gives you one prompt per task.** You open a tab for each, choose the model written above it and paste. From then on you come back to the orchestrator.
+6. **It follows them all.** Each session writes to the orchestrator when it starts, when it has a question, when it needs a file that is not its own, when the pull request is open. The orchestrator answers what the documents answer, brings you the decisions that are yours, and keeps one board:
+
+   | It watches | How |
+   |---|---|
+   | Files | What each session changed, against the files it was given: a file two sessions touch is stopped before it becomes a conflict |
+   | Pull requests | Which are open, their checks, which conflict with `main` |
+   | CI runs | One per pull request is the target; each one beyond that has a reason written on the board |
+   | Merges | It proposes the order and merges only when you ask |
+
+7. **It closes the round**: the status, once for everyone, and a report with the CI runs spent against the pull requests opened.
+
+### How it keeps CI runs down
+- Every session pushes **once**: after bringing in `main`, running locally everything CI runs, and with handover, review and the `in review` mark already in the commits.
+- A failed run is reproduced locally and fixed whole before the next push. Nobody pushes to see what CI says.
+- Before the merges, the orchestrator merges all the round's branches in a throwaway folder and runs the checks once, locally: what only breaks together is found without spending a run.
+- After a merge, the other pull requests are **not** all updated. Only the one that conflicts, or the next in line if the repo requires branches to be up to date.
+
 ## `replan`: changing the plan
 ```
 /relay:replan [what changes]
@@ -167,7 +197,7 @@ Two cases, one skill.
 3. It has the diff reviewed: the `code-reviewer` agent, `security-auditor` if the task touches input, access or payments, plus the reviews of the supporting plugins if installed.
 4. It writes the handover and updates the status and the task's row. If unplanned work came up it sends you to `/relay:replan`.
 5. It commits: the message says what changes, why, what was discarded, how it was verified and what is still unverified.
-6. **It asks** whether to push and open the pull request. Then it checks the CI and marks the task `in review`.
+6. **It asks** whether to push and open the pull request, with the task already marked `in review`: one push, one CI run. Then it checks the CI.
 
 **You stop halfway:** it writes the handover and the status, commits, and pushes only if you ask. No pull request. The handover says exactly what is half-done and what the next move is.
 
